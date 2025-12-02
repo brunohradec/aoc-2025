@@ -31,17 +31,19 @@ public class Main {
                 Pattern pattern = Pattern.compile("(\\d+)-(\\d+)");
                 Matcher matcher = pattern.matcher(idRange);
 
-                if (matcher.matches()) {
-                    long firstId = Long.parseLong(matcher.group(1));
-                    long lastId = Long.parseLong(matcher.group(2));
+                if (!matcher.matches()) {
+                    return;
+                }
 
-                    log.info("Checking range {}-{}", firstId, lastId);
+                long firstId = Long.parseLong(matcher.group(1));
+                long lastId = Long.parseLong(matcher.group(2));
 
-                    for (long i = firstId; i <= lastId; i++) {
-                        if (isInvalidId(String.valueOf(i))) {
-                            log.info("Found invalid ID: {}", i);
-                            sum += i;
-                        }
+                log.info("Checking range {}-{}", firstId, lastId);
+
+                for (long i = firstId; i <= lastId; i++) {
+                    if (isInvalidId(String.valueOf(i))) {
+                        log.info("Found invalid ID: {}", i);
+                        sum += i;
                     }
                 }
             }
